@@ -1,0 +1,3 @@
+-- EX5
+SELECT * FROM Pedido
+WHERE valor_total > 100 AND foi_entregue = 1;

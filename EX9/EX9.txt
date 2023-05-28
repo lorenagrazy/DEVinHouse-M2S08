@@ -1,0 +1,15 @@
+-- EX9
+GO;
+CREATE VIEW vwDetalhesPedidosCliente
+AS
+	SELECT
+		p.id,
+		c.nome,
+		c.email,
+		p.valor_total,
+		p.status
+	FROM Pedido AS p
+	LEFT JOIN Cliente AS c
+	ON p.cliente = c.id;
+
+SELECT * FROM vwDetalhesPedidosCliente;

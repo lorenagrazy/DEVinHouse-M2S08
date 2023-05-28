@@ -1,0 +1,9 @@
+-- EX6
+SELECT 
+	c.nome, 
+	COUNT(a.id) AS 'Número de avaliações'
+FROM Cliente AS c
+LEFT JOIN Avaliacao AS a
+ON c.id = a.autor
+GROUP BY c.nome
+ORDER BY COUNT(a.id) DESC;

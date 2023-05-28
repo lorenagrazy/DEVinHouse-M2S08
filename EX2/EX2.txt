@@ -1,0 +1,59 @@
+USE ExSemanal;
+GO
+
+-- EX2
+CREATE TABLE Cliente (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nome VARCHAR(200) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+    senha VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE MetodoPagamento (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    cliente_id INT,
+    numero_cartao VARCHAR(16) NOT NULL,
+    validade DATE NOT NULL,
+    senha VARCHAR(50) NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id)
+);
+
+CREATE TABLE Produto (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nome VARCHAR(200) NOT NULL,
+    preco NUMERIC(10, 2) NOT NULL,
+    nota NUMERIC(2, 1) NOT NULL,
+    unidades INTEGER NOT NULL,
+    nro_vendas INTEGER NOT NULL
+);
+
+CREATE TABLE Avaliacao (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    autor INT,
+    produto INT,
+    comentario VARCHAR(500) NOT NULL,
+    numero_estrelas NUMERIC(1, 0) NOT NULL,
+    data_criacao DATE NOT NULL,
+    FOREIGN KEY (autor) REFERENCES Cliente(id),
+    FOREIGN KEY (produto) REFERENCES Produto(id)
+);
+
+CREATE TABLE Pedido (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    cliente INT,
+    metodo_pagamento INT,
+    valor_total NUMERIC(20, 2) NOT NULL,
+    status VARCHAR(30) NOT NULL,
+    foi_entregue BIT NOT NULL,
+    FOREIGN KEY (cliente) REFERENCES Cliente(id),
+    FOREIGN KEY (metodo_pagamento) REFERENCES MetodoPagamento(id)
+);
+
+CREATE TABLE ProdutoPedido (
+    produto INT,
+    pedido INT,
+    FOREIGN KEY (produto) REFERENCES Produto(id),
+    FOREIGN KEY (pedido) REFERENCES Pedido(id)
+);

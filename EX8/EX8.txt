@@ -1,0 +1,18 @@
+-- EX8
+GO;
+CREATE PROCEDURE AtualizarEstoque
+	@produto_id INT,
+	@quantidade_vendida INT
+AS
+	UPDATE Produto
+	SET
+		unidades = unidades - @quantidade_vendida,
+		nro_vendas = nro_vendas + @quantidade_vendida
+	WHERE
+		id = @produto_id;
+GO;
+
+SELECT nome, unidades, nro_vendas FROM Produto
+WHERE id = 1;
+
+EXEC AtualizarEstoque @produto_id = 1, @quantidade_vendida = 10;

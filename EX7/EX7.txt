@@ -1,0 +1,10 @@
+--EX7
+SELECT c.nome, pr.nome, pe.valor_total
+FROM Cliente AS c
+INNER JOIN Pedido AS pe
+ON c.id = pe.cliente
+INNER JOIN ProdutoPedido AS pp
+ON pe.id = pp.pedido
+INNER JOIN Produto AS pr
+ON pp.produto = pr.id
+WHERE pe.valor_total > 150;
